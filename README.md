@@ -1,4 +1,5 @@
 # packer-windows-10-insider
+![Windows Terminal Screenshot](winstuff.png)
 This version of my Windows packer template is tuned for Windows 10 insider builds. Realistically it should work with any build of Windows 10 18917 or higher. The builders I have configured here work with VMware Workstation Linux and Fusion. Note the VM system specs and adjust as needed for your system. 
 
 ## Newer Windows Goodies 
@@ -28,7 +29,7 @@ These are added via the [scripts/packages.ps1](scripts/packages.ps1) file. Adjus
 
 
 ## Notes on building the template
-The reader will need to source an appropriate .iso from Microsoft and place it into the iso directory. Additionally the first 3 variables listed in [windows-10-insider.json](windows-10-insider.json) need to be updated to match the iso and administrator pass you want. Additionally the administrator password needs to updated to match the json file in [Autounattend.xml](Autounattend.xm.). 
+The reader will need to source an appropriate .iso from Microsoft and place it into the iso directory. Additionally the first 3 variables listed in [windows-10-insider.json](windows-10-insider.json) need to be updated to match the iso and administrator pass you want. Additionally the Administrator password needs to updated to match in both [windows-10-insider.json](windows-10-insider.json) & [Autounattend.xml](Autounattend.xm.). 
 
 Run this command to bake the full image. 
 ```bash
