@@ -18,7 +18,7 @@ This version of my Windows packer template is tuned for Windows 10 insider build
   * DirectX and OpenGL enabled
 
 ## Must Have Packages From Chocolatey
-These are added via the [scripts/packages.ps1](scripts/packages.ps1) file. Adjust to taste.
+These are added via the [scripts/packages.ps1](scripts/packages.ps1) file. Adjust to taste but note some are needed for the build process.
   * autologon
   * notepadplusplus
   * 7zip
