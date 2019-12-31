@@ -1,0 +1,315 @@
+{
+  "variables": {
+    "iso_filename": "Windows10_InsiderPreview_EnterpriseVL_x64_en-us_19035.iso",
+    "iso_file_checksum": "b4b774e4816dc4b28ea14ea1e7283ac53beb2be216aca3a0cbcceb60a05d32de",
+    "administrator_password": "WinEnt1nside!"
+  },
+  "min_packer_version": "1.4.0",
+  "builders": [
+    {
+      "name": "full",
+      "type": "vmware-iso",
+      "cpus": "4",
+      "cores": "4",
+      "memory": "16384",
+      "network_adapter_type": "E1000e",
+      "disk_adapter_type": "nvme",
+      "display_name": "windows",
+      "vnc_disable_password": "true",
+      "http_directory": "blobs",
+      "communicator": "winrm",
+      "skip_compaction": "false",
+      "output_directory": "VM/windows",
+      "vm_name": "windows",
+      "vmdk_name": "windows",
+      "boot_command": "<enter>",
+      "iso_url": "iso/{{user `iso_filename`}}",
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "{{user `iso_file_checksum`}}",
+      "boot_wait": "2s",
+      "winrm_username": "administrator",
+      "winrm_password": "{{user `administrator_password`}}",
+      "winrm_timeout": "2h",
+      "winrm_insecure": "true",
+      "winrm_use_ssl": "true",
+      "shutdown_command": "shutdown /s /t 5 /f /d p:4:1",
+      "shutdown_timeout": "5m",
+      "guest_os_type": "windows9-64",
+      "disk_size": "102400",
+      "disk_type_id": "0",
+      "floppy_files": [
+        "Autounattend.xml",
+        "scripts/bootstrap-win.ps1",
+        "scripts/ConfigureRemotingForAnsible.ps1"
+      ],
+      "headless": false,
+      "vmx_data": {
+        "tools.upgrade.policy": "manual",
+        "virtualhw.version": "16",
+        "tools.syncTime": "0",
+        "vmx.buildType": "release",
+        "time.synchronize.continue": "1",
+        "time.synchronize.restore": "1",
+        "time.synchronize.resume.disk": "1",
+        "time.synchronize.shrink": "1",
+        "time.synchronize.tools.startup": "1",
+        "time.synchronize.tools.enable": "1",
+        "time.synchronize.resume.host": "1",
+        "powerType.powerOff": "hard",
+        "powerType.powerOn": "hard",
+        "powerType.suspend": "hard",
+        "powerType.reset": "hard",
+        "mem.hotadd": "FALSE",
+        "vhv.enable": "TRUE",
+        "windows.vbs.enabled": "TRUE",
+        "usb.vbluetooth.startConnected": "FALSE",
+        "uefi.secureBoot.enabled": "TRUE",
+        "firmware": "efi",
+        "svga.graphicsmemorykb": "1048576",
+        "svga.guestbackedprimaryaware": "TRUE",
+        "svga.vramsize": "268435456",
+        "bios.bootOrder": "cdrom,hdd",
+        "gui.fitGuestUsingNativeDisplayResolution": "FALSE",
+        "mks.enable3d": "TRUE"
+      },
+      "vmx_data_post": {
+        "ide1:0.startConnected": "FALSE",
+        "ide1:0.deviceType": "atapi-cdrom",
+        "ide1:0.fileName": "cdrom0",
+        "ide1:0.present": "TRUE"
+      }
+    },
+    {
+      "name": "base",
+      "type": "vmware-iso",
+      "cpus": "4",
+      "cores": "4",
+      "memory": "16384",
+      "network_adapter_type": "E1000e",
+      "disk_adapter_type": "nvme",
+      "display_name": "windows base",
+      "vnc_disable_password": "true",
+      "http_directory": "blobs",
+      "communicator": "winrm",
+      "skip_compaction": "false",
+      "output_directory": "VM/windows-base",
+      "vm_name": "windows",
+      "vmdk_name": "windows",
+      "boot_command": "<space><space><space><space><space><space><space><space>",
+      "iso_url": "iso/{{user `iso_filename`}}",
+      "iso_checksum_type": "sha256",
+      "iso_checksum": "{{user `iso_file_checksum`}}",
+      "boot_wait": "3s",
+      "winrm_username": "administrator",
+      "winrm_password": "{{user `administrator_password`}}",
+      "winrm_timeout": "2h",
+      "winrm_insecure": "true",
+      "winrm_use_ssl": "true",
+      "shutdown_command": "shutdown /s /t 5 /f /d p:4:1",
+      "shutdown_timeout": "5m",
+      "guest_os_type": "windows9-64",
+      "disk_size": "102400",
+      "disk_type_id": "0",
+      "floppy_files": [
+        "Autounattend.xml",
+        "scripts/bootstrap-win.ps1",
+        "scripts/ConfigureRemotingForAnsible.ps1"
+      ],
+      "headless": false,
+      "vmx_data": {
+        "log.filename": "logs/windows.log",
+        "logging": "true",
+        "tools.upgrade.policy": "manual",
+        "virtualhw.version": "16",
+        "tools.syncTime": "0",
+        "vmx.buildType": "release",
+        "time.synchronize.continue": "1",
+        "time.synchronize.restore": "1",
+        "time.synchronize.resume.disk": "1",
+        "time.synchronize.shrink": "1",
+        "time.synchronize.tools.startup": "1",
+        "time.synchronize.tools.enable": "1",
+        "time.synchronize.resume.host": "1",
+        "powerType.powerOff": "hard",
+        "powerType.powerOn": "hard",
+        "powerType.suspend": "hard",
+        "powerType.reset": "hard",
+        "mem.hotadd": "FALSE",
+        "vhv.enable": "TRUE",
+        "windows.vbs.enabled": "TRUE",
+        "usb.vbluetooth.startConnected": "FALSE",
+        "uefi.secureBoot.enabled": "TRUE",
+        "firmware": "efi",
+        "svga.graphicsmemorykb": "1048576",
+        "svga.guestbackedprimaryaware": "TRUE",
+        "svga.vramsize": "268435456",
+        "bios.bootOrder": "cdrom,hdd",
+        "gui.fitGuestUsingNativeDisplayResolution": "FALSE",
+        "mks.enable3d": "TRUE"
+      }
+    },
+    {
+      "name": "customize",
+      "type": "vmware-vmx",
+      "vm_name": "windows customize",
+      "display_name": "windows customize",
+      "headless": false,
+      "http_directory": "blobs",
+      "source_path": "vm/windows-base/windows.vmx",
+      "communicator": "winrm",
+      "skip_compaction": "true",
+      "output_directory": "VM/windows",
+      "winrm_username": "administrator",
+      "winrm_password": "{{user `administrator_password`}}",
+      "winrm_insecure": "true",
+      "winrm_use_ssl": "true",
+      "shutdown_command": "shutdown /s /t 5 /f /d p:4:1",
+      "vmx_data_post": {
+        "ide1:0.startConnected": "FALSE",
+        "ide1:0.deviceType": "atapi-cdrom",
+        "ide1:0.fileName": "cdrom0",
+        "ide1:0.present": "TRUE"
+      }
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "windows-shell",
+      "only": [
+        "base",
+        "full"
+      ],
+      "inline": [
+        "sc config winrm start=auto"
+      ]
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "script": "scripts/ssh.ps1",
+      "remote_path": "c:/Windows/temp/ssh.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "script": "scripts/tools.ps1",
+      "remote_path": "c:/Windows/temp/tools.ps1"
+    },
+    {
+      "pause_before": "1m",
+      "restart_timeout": "20m",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "pause_before": "1m",
+      "remote_path": "c:/Windows/temp/windows-update-winrm.ps1",
+      "script": "scripts/windows-update-winrm.ps1"
+    },
+    {
+      "type": "windows-restart",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "restart_timeout": "10h"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "script": "scripts/packages.ps1",
+      "remote_path": "c:/Windows/temp/packages.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "start_retry_timeout": "8h",
+      "script": "scripts/windows-tweaks.ps1",
+      "remote_path": "c:/Windows/temp/windows-tweaks.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "full",
+        "customize"
+      ],
+      "start_retry_timeout": "8h",
+      "script": "scripts/wsl.ps1",
+      "remote_path": "c:/Windows/temp/wsl.ps1"
+    },
+    {
+      "restart_timeout": "1h",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "type": "windows-restart"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "full",
+        "customize"
+      ],
+      "start_retry_timeout": "1h",
+      "script": "scripts/wsl.ps1",
+      "remote_path": "c:/Windows/temp/wsl.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "full"
+      ],
+      "start_retry_timeout": "1h",
+      "script": "scripts/cleanup_compact.ps1",
+      "remote_path": "c:/Windows/temp/cleanup_compact.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "inline": "get-childitem -Recurse \"C:/Windows/Panther\" | remove-item -Recurse -Force -ErrorAction SilentlyContinue",
+      "remote_path": "c:/Windows/temp/clean_panther.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "inline": "get-childitem -Recurse \"C:/Windows/Temp\" | remove-item -Recurse -Force -ErrorAction SilentlyContinue",
+      "remote_path": "c:/Windows/temp/clean_temp.ps1"
+    },
+    {
+      "type": "powershell",
+      "only": [
+        "customize",
+        "full"
+      ],
+      "inline": "start-process powershell -argumentlist \"Get-ScheduledTask | Where TaskPath -eq '\\' | Unregister-ScheduledTask -Confirm:`$false\"",
+      "remote_path": "c:/Windows/temp/purge_tasks.ps1"
+    }
+  ]
+}
