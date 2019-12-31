@@ -43,5 +43,5 @@ packer build -force -only base windows-10-insider.json
 
 This command will fry an existing base image. This is super useful for re-running provisioners when debugging & testing them.
 ```bash
-packer build -force -only full windows-10-insider.json
+packer build -force -only customize windows-10-insider.json
 ```
