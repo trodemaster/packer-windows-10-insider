@@ -8,6 +8,7 @@
   "builders": [
     {
       "name": "full",
+      "fusion_app_path": "/Applications/VMware Fusion Tech Preview.app", 
       "type": "vmware-iso",
       "cpus": "4",
       "cores": "4",
@@ -82,6 +83,7 @@
     {
       "name": "base",
       "type": "vmware-iso",
+      "fusion_app_path": "/Applications/VMware Fusion Tech Preview.app", 
       "cpus": "4",
       "cores": "4",
       "memory": "16384",
@@ -152,6 +154,7 @@
       "name": "customize",
       "type": "vmware-vmx",
       "vm_name": "windows customize",
+      "fusion_app_path": "/Applications/VMware Fusion Tech Preview.app",
       "display_name": "windows customize",
       "headless": false,
       "http_directory": "blobs",
