@@ -45,3 +45,6 @@ This command will fry an existing base image. This is super useful for re-runnin
 ```bash
 packer build -force -only customize windows-10-insider.json
 ```
+
+
+https://uup.rg-adguard.net/index.php
